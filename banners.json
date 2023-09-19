@@ -1,0 +1,29 @@
+{
+    "photos":[
+        {
+            "id":1,
+            "imgUrl":"https://dkstatics-public.digikala.com/digikala-adservice-banners/5e416895bc3ab7126e6d936a39a93492d24d457f_1675248997.jpg?x-oss-process=image/quality,q_95"
+        },
+        {
+            "id":2,
+            "imgUrl":"https://www.technolife.ir/image/banner_SlideBanner_eoJnzB_3da51dca-14fc-4320-8f23-92aafe4bc6f5.png"
+        },
+        {
+            "id":3,
+            "imgUrl":"https://www.technolife.ir/image/banner_SlideBanner_Jp8qlk_ab798ead-c71a-4a9e-a42d-687c63e827ee.png"
+        },
+        {
+            "id":4,
+            "imgUrl":"https://www.technolife.ir/image/banner_SlideBanner_7X2JMa_6ba6e796-4808-429c-a72e-51fe7833e789.png"
+        },
+        {
+            "id":5,
+            "imgUrl":"https://www.technolife.ir/image/banner_SlideBanner_bNb4GP_f8a2db58-e4e7-49c9-aafc-d324c84b7ac5.png"
+        },
+        {
+            "id":6,
+            "imgUrl":"https://www.technolife.ir/image/banner_SlideBanner_MTNKBQ_3c9d3c59-f7e9-4cd6-a4d0-bb48a5ca6ec5.png"
+        }
+    ]
+    
+}
