@@ -1,11 +1,13 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:progress_indicators/progress_indicators.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:storeapp/Model/PageviewModel.dart';
+import 'package:storeapp/Model/eventsmodel.dart';
 import 'package:storeapp/Model/offersmodel.dart';
+import 'package:storeapp/View/Widgets.dart';
+import 'package:storeapp/View/seeAllOffers.dart';
 import 'package:storeapp/method/fetchdataforpageview.dart';
+import 'package:storeapp/method/getDataFromEvents.dart';
 import 'package:storeapp/method/getdataforoffers.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Future<List<PageViewModel>>? pageviewmodelfuture;
   Future<List<OffersModel>>? offersmodelfuture;
+  Future<List<EventsModel>>? eventmodelFuture;
   PageController pageController = PageController();
 
   @override
@@ -26,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     pageviewmodelfuture = getDataFromServerForPageView();
     offersmodelfuture = getdataforoffers();
+    eventmodelFuture = getDataFromEvents();
   }
 
   @override
@@ -35,8 +39,11 @@ class _HomePageState extends State<HomePage> {
       drawer: const Drawer(),
       appBar: AppBar(
         title: const Text(
-          "Digikala",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          "SamaLaunge Shop",
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'vazir'),
         ),
         backgroundColor: Colors.red,
         actions: [
@@ -107,6 +114,7 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData) {
                         List<OffersModel>? model = snapshot.data;
                         return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           reverse: true,
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -128,9 +136,14 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     OutlinedButton(
                                         style: OutlinedButton.styleFrom(
-                                            side: BorderSide(
+                                            side: const BorderSide(
                                                 color: Colors.white)),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(SeeAllOffers(),
+                                              transition: Transition.downToUp,
+                                              duration: const Duration(
+                                                  milliseconds: 500));
+                                        },
                                         child: const Text(
                                           "< مشاهده همه",
                                           style: TextStyle(
@@ -155,105 +168,117 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+              ),
 
-  ///TODO:Special Offer Section for ListView
-  Container specialOfferItemListView(OffersModel offersModel) {
-    return Container(
-      width: 200,
-      height: 300,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        elevation: 1.5,
-        child: Container(
-          width: 200,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Image.network(
-                  offersModel.imageurl,
-                  height: 150,
-                  fit: BoxFit.fill,
+              ///TODO:Event Section Under Offer Section
+              Container(
+                width: double.infinity,
+                child: FutureBuilder(
+                  future: eventmodelFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<EventsModel>? model = snapshot.data;
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(),
+                                  height: 150,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      model![0].imageUrl,
+                                      fit: BoxFit.fill,
+                                      width: 210,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(),
+                                  height: 150,
+                                  width: 170,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      model![1].imageUrl,
+                                      fit: BoxFit.fill,
+                                      width: 210,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(),
+                                  height: 150,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      model![2].imageUrl,
+                                      fit: BoxFit.fill,
+                                      width: 210,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(),
+                                  height: 150,
+                                  width: 170,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      model![3].imageUrl,
+                                      fit: BoxFit.fill,
+                                      width: 210,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 12, right: 8, left: 8),
+                            child: Container(
+                              decoration: const BoxDecoration(),
+                              height: 150,
+                              width: double.infinity,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  model![4].imageUrl,
+                                  fit: BoxFit.fill,
+                                  width: 210,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.red,
+                        )),
+                      );
+                    }
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  offersModel.productname,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, fontFamily: 'vazir'),
-                ),
-              ),
-              Expanded(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          offersModel.offprice.toString() + " T",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.red,
-                          ),
-                        ),
-                        Text(
-                          offersModel.price.toString() + " T",
-                          style: const TextStyle(
-                              fontSize: 15,
-                              decoration: TextDecoration.lineThrough),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10, right: 10),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.red,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                            offersModel.offpercent.toString() + "%",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ))
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  ///TODO: Page View Section for Images
-
-  Padding pageViewItem(PageViewModel pageViewModel) {
-    return Padding(
-      padding: EdgeInsets.only(top: 15, left: 10, right: 10),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        child: Image.network(
-          pageViewModel.imageurl,
-          fit: BoxFit.fill,
         ),
       ),
     );

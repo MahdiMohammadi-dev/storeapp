@@ -10,7 +10,7 @@ Future<List<OffersModel>> getdataforoffers() async {
 
   var response = await Dio().get(apilink);
   var responsedecode = jsonDecode(response.data);
-  log(responsedecode.toString());
+  // log(responsedecode.toString());
 
   for (var items in responsedecode['product']) {
     offermodel.add(OffersModel(
