@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:storeapp/Model/offersmodel.dart';
+import 'package:storeapp/View/ShopBasket.dart';
 import 'package:storeapp/method/getdataforoffers.dart';
 
 class BottomNav extends StatelessWidget {
@@ -50,7 +52,10 @@ class BottomNav extends StatelessWidget {
                       color: Colors.white,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(const ShopBasket(),
+                          transition: Transition.downToUp);
+                    },
                     icon: const Icon(
                       Icons.shopping_basket,
                       color: Colors.white,

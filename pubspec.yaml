@@ -40,6 +40,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   get: ^4.6.5
   google_maps_flutter: ^2.5.0
+  shared_preferences: ^2.2.1
 
 dev_dependencies:
   flutter_test:
