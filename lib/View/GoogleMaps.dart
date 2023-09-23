@@ -24,13 +24,18 @@ class _GoogleMapsState extends State<GoogleMaps> {
       body: GoogleMap(
         markers: <Marker>{
           const Marker(
+              alpha: 1.0,
+              infoWindow: InfoWindow(snippet: "مرزداران", title: "شعبه یک"),
               position: LatLng(35.7218995, 51.3388785),
               markerId: MarkerId("1")),
           const Marker(
+              infoWindow: InfoWindow(title: "شعبه دو", snippet: "صادقیه"),
               position: LatLng(35.7282839, 51.3548966),
               markerId: MarkerId("2")),
           const Marker(
-              position: LatLng(35.73954, 51.3689485), markerId: MarkerId("3"))
+              infoWindow: InfoWindow(title: "ستارخان", snippet: "پونک"),
+              position: LatLng(35.73954, 51.3689485),
+              markerId: MarkerId("3"))
         },
         mapType: MapType.hybrid,
         initialCameraPosition: CameraPosition(
